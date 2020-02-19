@@ -121,7 +121,7 @@ class BinarySearchTree:
 
         while len(node_stack):
             step_right = node_stack.pop()
-            print(step_right)
+            print(step_right.value)
             traverse_left_branch(step_right)
 
         # left = node.left

@@ -7,17 +7,14 @@ class Heap:
         self._bubble_up(len(self.storage) - 1)
 
     def delete(self):
-        print('starting:', self.storage)
         if not len(self.storage):
             return None
         
         elif len(self.storage) == 1:
-            print('popped last:', self.storage[0])
             return self.storage.pop()
         
         else:
             removed, self.storage[0] = self.storage[0], self.storage.pop()
-            print('popped off:', removed)
             self._sift_down(0)
             return removed
 

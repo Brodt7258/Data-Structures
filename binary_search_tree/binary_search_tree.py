@@ -124,25 +124,25 @@ class BinarySearchTree:
             print(step_right.value)
             traverse_left_branch(step_right)
 
-        # left = node.left
-        # while left:
-        #     print(left.value)
-
-        #     if left.right:
-        #         node_stack.push(left.right)
-
-        #     left = left.left
-
-
-
-
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        print(node.value)
+
+        if node.left:
+            node.left.pre_order_dft(node.left)
+
+        if node.right:
+            node.right.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        if node.left:
+            node.left.post_order_dft(node.left)
+
+        if node.right:
+            node.right.post_order_dft(node.right)
+
+        print(node.value)

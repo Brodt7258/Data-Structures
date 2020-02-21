@@ -25,24 +25,24 @@ class AVLTreeTests(unittest.TestCase):
     self.tree.update_height()
     self.assertEqual(self.tree.height, 2)
 
-  # def test_left_rotation(self):
-  #   self.tree.node = Node(5)
-  #   self.tree.node.left = AVLTree(Node('x'))
-  #   self.tree.node.right = AVLTree(Node(8))
-  #   self.tree.node.right.node.left = AVLTree(Node('c'))
-  #   self.tree.node.right.node.right = AVLTree(Node(9))
-  #   self.tree.node.right.node.right.node.left = AVLTree(Node('y'))
-  #   self.tree.node.right.node.right.node.right = AVLTree(Node('z'))
+  def test_left_rotation(self):
+    self.tree.node = Node(5)
+    self.tree.node.left = AVLTree(Node('x'))
+    self.tree.node.right = AVLTree(Node(8))
+    self.tree.node.right.node.left = AVLTree(Node('c'))
+    self.tree.node.right.node.right = AVLTree(Node(9))
+    self.tree.node.right.node.right.node.left = AVLTree(Node('y'))
+    self.tree.node.right.node.right.node.right = AVLTree(Node('z'))
 
-  #   self.tree.left_rotate()
+    self.tree.left_rotate()
 
-  #   self.assertEqual(self.tree.node.key, 8)
-  #   self.assertEqual(self.tree.node.left.node.key, 5)
-  #   self.assertEqual(self.tree.node.right.node.key, 9)
-  #   self.assertEqual(self.tree.node.left.node.left.node.key, 'x')
-  #   self.assertEqual(self.tree.node.left.node.right.node.key, 'c') 
-  #   self.assertEqual(self.tree.node.right.node.left.node.key, 'y')
-  #   self.assertEqual(self.tree.node.right.node.right.node.key, 'z')
+    self.assertEqual(self.tree.node.key, 8)
+    self.assertEqual(self.tree.node.left.node.key, 5)
+    self.assertEqual(self.tree.node.right.node.key, 9)
+    self.assertEqual(self.tree.node.left.node.left.node.key, 'x')
+    self.assertEqual(self.tree.node.left.node.right.node.key, 'c') 
+    self.assertEqual(self.tree.node.right.node.left.node.key, 'y')
+    self.assertEqual(self.tree.node.right.node.right.node.key, 'z')
 
   # def test_right_rotation(self):
   #   self.tree.node = Node(5)

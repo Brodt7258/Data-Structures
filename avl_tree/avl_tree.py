@@ -50,39 +50,11 @@ class AVLTree:
 
         l_height, r_height = 0, 0
 
-        if self.node.left:
-            l_height = 1 + self.node.left.update_height()
+        if self.node.left: l_height = 1 + self.node.left.update_height()
+        if self.node.right: r_height = 1 + self.node.right.update_height()
 
-        if self.node.right:
-            r_height = 1 + self.node.right.update_height()
-
-        self.height = l_height if l_height > r_height else r_height
+        self.height = max(l_height, r_height)
         return self.height
-
-        
-
-        # height = 0
-
-        # nodes = []
-        # if self.node.left:
-        #     nodes.append(self.node.left)
-        # if self.node.right:
-        #     nodes.append(self.node.right)
-
-        # while nodes:
-        #     height += 1
-        #     next_nodes = []
-        #     for n in nodes:
-
-        #         if n.node.left:
-        #             next_nodes.append(n.left.node)
-        #         if n.node.right:
-        #             next_nodes.append(n.right.node)
-
-        #     nodes = next_nodes
-        
-        # self.height = height
-
 
     """
     Updates the balance factor on the AVLTree class
@@ -96,7 +68,11 @@ class AVLTree:
     of the new parent. 
     """
     def left_rotate(self):
-        pass
+        y, x = self.node, self.node.right.node
+        T1, T2, T3 = y.left, x.left, x.right
+
+        y.left, y.key = AVLTree(Node(y.key)), x.key
+        y.left.node.left, y.left.node.right, y.right = T1, T2, T3
 
     """
     Perform a right rotation, making the left child of this

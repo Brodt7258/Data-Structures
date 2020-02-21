@@ -50,17 +50,43 @@ class AVLTree:
 
         l_height, r_height = 0, 0
 
-        if self.node.left: l_height = 1 + self.node.left.update_height()
-        if self.node.right: r_height = 1 + self.node.right.update_height()
+        if self.node.left: l_height = self.node.left.update_height()
+        if self.node.right: r_height = self.node.right.update_height()
 
-        self.height = max(l_height, r_height)
+        self.height = 1 + max(l_height, r_height)
+        self.update_balance()
+
+        return self.height
+
+    # really shouldn't have to search down every single sub branch just to update the height
+    # changes should happen downstream, upon insertion or rotation, and propagate up.
+    def update_height_local(self):
+        if self.node is None:
+            self.height = -1
+            return self.height
+        
+        if self.node.left is None and self.node.right is None:
+            self.height = 0
+            return self.height
+        
+        l_height, r_height = 0, 0
+
+        if self.node.left: l_height = self.node.left.height
+        if self.node.right: r_height = self.node.right.height
+        
+        self.height = 1 + max(l_height, r_height)
         return self.height
 
     """
     Updates the balance factor on the AVLTree class
     """
     def update_balance(self):
-        pass
+        l_height, r_height = 0, 0
+
+        if self.node.left: l_height = self.node.left.height
+        if self.node.right: r_height = self.node.right.height
+
+        self.balance = l_height - r_height
 
     """
     Perform a left rotation, making the right child of this
@@ -74,13 +100,30 @@ class AVLTree:
         y.left, y.key = AVLTree(Node(y.key)), x.key
         y.left.node.left, y.left.node.right, y.right = T1, T2, T3
 
+        y.left.update_height_local()
+        y.left.update_balance()
+
+        self.update_height_local()
+        self.update_balance()
+
+
     """
     Perform a right rotation, making the left child of this
     node the parent and making the old parent the right child
     of the new parent. 
     """
     def right_rotate(self):
-        pass
+        y, x = self.node, self.node.left.node
+        T1, T2, T3, = x.left, x.right, y.right
+
+        y.right, y.key = AVLTree(Node(y.key)), x.key
+        y.left, y.right.node.left, y.right.node.right = T1, T2, T3
+
+        y.right.update_height_local()
+        y.right.update_balance()
+
+        self.update_height_local()
+        self.update_balance()
 
     """
     Sets in motion the rebalancing logic to ensure the

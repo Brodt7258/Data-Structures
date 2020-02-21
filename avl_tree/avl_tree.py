@@ -40,7 +40,49 @@ class AVLTree:
     in the tree
     """
     def update_height(self):
-        pass
+        if self.node is None:
+            self.height = -1
+            return self.height
+        
+        if self.node.left is None and self.node.right is None:
+            self.height = 0
+            return self.height
+
+        l_height, r_height = 0, 0
+
+        if self.node.left:
+            l_height = 1 + self.node.left.update_height()
+
+        if self.node.right:
+            r_height = 1 + self.node.right.update_height()
+
+        self.height = l_height if l_height > r_height else r_height
+        return self.height
+
+        
+
+        # height = 0
+
+        # nodes = []
+        # if self.node.left:
+        #     nodes.append(self.node.left)
+        # if self.node.right:
+        #     nodes.append(self.node.right)
+
+        # while nodes:
+        #     height += 1
+        #     next_nodes = []
+        #     for n in nodes:
+
+        #         if n.node.left:
+        #             next_nodes.append(n.left.node)
+        #         if n.node.right:
+        #             next_nodes.append(n.right.node)
+
+        #     nodes = next_nodes
+        
+        # self.height = height
+
 
     """
     Updates the balance factor on the AVLTree class
@@ -78,4 +120,19 @@ class AVLTree:
     if we need to rebalance
     """
     def insert(self, key):
-        pass
+        if key is None:
+            return
+
+        elif self.node.key is None:
+            self.node.key = key
+        
+        elif key >= self.node.key:
+            if self.node.right is None:
+                self.node.right = AVLTree(key)
+            else:
+                self.node.right.insert(key)
+        else:
+            if self.node.left is None:
+                self.node.left = AVLTree(key)
+            else:
+                self.node.left.insert(key)
